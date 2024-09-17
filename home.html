@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .admin-login {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<title>Blogs</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-2">
+ <div class="card">
+     <div class="card-body">
+         <form id="post-form">
+             <center><h3>Make A Blog</h3></center>
+             <textarea id="post" class="form-control" placeholder="What's on your mind..."></textarea>
+             <input type="file" class="form-control" id="image" accept="images/*">
+             <div class="text-center">
+                 <button type="button" class="btn btn-success" onclick="upload()">Upload</button>
+             </div>
+
+         </form>
+      </div>
+
+ </div>
+ <div class="row mt-4" id="posts">
+
+ </div>
+
+</div>
+
+
+<body>
+
+<div class="container mt-2">
+    <button class="btn btn-primary admin-login" onclick="showAdminLogin()">Войти как админ</button>
+    <div class="row mt-4" id="posts">
+        <!-- Posts will be displayed here -->
+    </div>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDj6o_BvyuXiHlop80SGA1UiG17XfhOnyE",
+        authDomain: "blogs-957a9.firebaseapp.com",
+        databaseURL: "https://blogs-957a9-default-rtdb.firebaseio.com",
+        projectId: "blogs-957a9",
+        storageBucket: "blogs-957a9.appspot.com",
+        messagingSenderId: "160842509516",
+        appId: "1:160842509516:web:7da2312ccc8f6277dc6669",
+        measurementId: "G-5YGKQ3QP31"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="home.js"></script>
+</body>
+</html>
