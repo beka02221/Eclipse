@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1f2029;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Переключатель тем */
+.dark-light:checked + label,
+.dark-light:not(:checked) + label {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #48dbfb;
+    background-image: url('https://assets.codepen.io/1462889/sun.svg');
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 200ms linear;
+}
+
+.dark-light:checked + label:after {
+    background-color: #102770;
+    background-image: url('https://assets.codepen.io/1462889/moon.svg');
+}
+
+.light-back {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 200ms linear;
+}
+
+.dark-light:checked ~ .light-back {
+    opacity: 1;
+}
+
+/* Логотип */
+.logo {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+}
+
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
+/* Dropdown меню */
+.sec-center {
+    position: fixed;
+    top: 40px;
+    left: 120px;
+    z-index: 1000;
+}
+
+.dropdown:checked + label,
+.dropdown:not(:checked) + label {
+    background-color: #ffeba7;
+    color: #102770;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+
+.section-dropdown {
+    display: none;
+    background-color: #111;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 150px;
+    z-index: 999;
+}
+
+.dropdown:checked ~ .section-dropdown {
+    display: block;
+}
+
+.section-dropdown a {
+    color: #fff;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.section-dropdown a:hover {
+    background-color: #ffeba7;
+    color: #102770;
+}
+
+/* Основной контент */
+.main-content {
+    margin-top: 150px;
+    text-align: center;
+}
+
+.photo-upload {
+    margin-bottom: 50px;
+}
+
+#photo-input {
+    margin: 20px;
+}
+
+#photos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+#photos-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+}

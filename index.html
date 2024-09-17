@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Запрет масштабирования -->
+    <title>Image Gallery</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: 'Dancing Script', cursive;
+            background-color: #2e2e2e;
+            transition: background-color 0.3s;
+            color: #ffffff;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Стили для заголовка */
+        .header {
+            background-color: #ff7f73;
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        /* Стили для формы создания поста */
+        .post-form {
+            background-color: rgb(255, 116, 109);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        /* Карточки изображений */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: none;
+            overflow: hidden;
+        }
+
+        .card img {
+            border-radius: 15px;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .card-body {
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Скрываем блок с текстом, если он пустой */
+        .card-body p {
+            margin: 0;
+        }
+
+        .card-body.hidden {
+            display: none;
+        }
+
+        /* Стили для кнопок */
+        .btn-custom {
+            background-color: #3b5998;
+            color: white;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #2a4276;
+        }
+
+        /* Неоновый стиль для кнопок */
+        .btn-neon {
+            color: white;
+            text-shadow: 0 0 5px #cf44cf, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
+        }
+
+        .btn-neon.blue {
+            background-color: #ffffff;
+            text-shadow: 0 0 5px #0000ff, 0 0 10px #0000ff, 0 0 15px #0000ff, 0 0 20px #0000ff;
+        }
+
+        .btn-neon.purple {
+            background-color: #ffffff;
+            text-shadow: 0 0 5px #800080, 0 0 10px #800080, 0 0 15px #800080, 0 0 20px #800080;
+        }
+
+        /* Стили для лампочки и переключения фона */
+        .lamp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #52525241;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            transition: background-color 0.5s;
+        }
+
+        .lamp-button.active {
+            background-color: #f0f0f0;
+        }
+
+        .lamp-button:before {
+            content: '💡';
+        }
+
+        /* Стили для авроры */
+        .aurora {
+            background: linear-gradient(45deg, #ffffff, #ffffff);
+            background-size: 400% 400%;
+            animation: aurora 10s ease infinite;
+        }
+
+        @keyframes aurora {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Масонский стиль для адаптивности */
+        @media (max-width: 767px) {
+            .gallery {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Шапка сайта -->
+<div class="header" data-i18n="header">
+    Eclipse
+</div>
+
+<!-- Кнопки для перехода -->
+<div class="container mt-4 text-center">
+    <a class="btn btn-neon purple mr-3" href="onas.html" data-i18n="aboutUs">О нас</a>
+    <a class="btn btn-neon blue" href="https://t.me/eclipse_community" target="_blank" data-i18n="telegram">Телеграмм</a>
+</div>
+
+<!-- Кнопка выбора языка -->
+<div class="container mt-4 text-center">
+    <select id="language-selector" class="form-control" style="max-width: 200px; margin: 0 auto;">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+    </select>
+</div>
+
+<!-- Форма для создания нового поста -->
+<div class="container mt-4">
+    <div class="post-form">
+        <form id="post-form">
+            <h3 class="text-center" data-i18n="createPost">Create a Post</h3>
+            <textarea id="post" class="form-control mb-3" placeholder="" rows="3" data-i18n="placeholder"></textarea>
+            <input type="file" class="form-control mb-3" id="image" accept="image/*">
+            <div class="text-center">
+                <button type="button" class="btn btn-custom" onclick="upload()" data-i18n="upload">Upload</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Галерея изображений -->
+    <div class="gallery" id="posts"></div>
+</div>
+
+<!-- Лампочка для переключения фона -->
+<button class="lamp-button" onclick="toggleBackground()"></button>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDj6o_BvyuXiHlop80SGA1UiG17XfhOnyE",
+        authDomain: "blogs-957a9.firebaseapp.com",
+        databaseURL: "https://blogs-957a9-default-rtdb.firebaseio.com",
+        projectId: "blogs-957a9",
+        storageBucket: "blogs-957a9.appspot.com",
+        messagingSenderId: "160842509516",
+        appId: "1:160842509516:web:7da2312ccc8f6277dc6669",
+        measurementId: "G-5YGKQ3QP31"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Функция для переключения фона
+    function toggleBackground() {
+        var body = document.body;
+        var lampButton = document.querySelector('.lamp-button');
+        if (body.classList.contains('aurora')) {
+            body.classList.remove('aurora');
+            lampButton.classList.remove('active');
+        } else {
+            body.classList.add('aurora');
+            lampButton.classList.add('active');
+        }
+    }
+
+    // Функция для загрузки данных
+    function upload() {
+        // Логика загрузки поста
+    }
+
+    // Функция для смены языка
+    function setLanguage(lang) {
+        fetch(`lang-${lang}.json`)
+            .then(response => response.json())
+            .then(translations => {
+                document.querySelectorAll('[data-i18n]').forEach(elem => {
+                    const key = elem.getAttribute('data-i18n');
+                    if (translations[key]) {
+                        elem.innerText = translations[key];
+                    }
+                });
+                document.querySelectorAll('[placeholder]').forEach(elem => {
+                    const key = elem.getAttribute('placeholder');
+                    if (translations[key]) {
+                        elem.setAttribute('placeholder', translations[key]);
+                    }
+                });
+            });
+    }
+
+    document.getElementById('language-selector').addEventListener('change', (event) => {
+        setLanguage(event.target.value);
+    });
+
+    // Установка начального языка
+    setLanguage('en');
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/1yR9t9xX2fj2zJfru5hU5gZ9WAPZ8xj+Fgmz5bCq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-6cO1Jcsg9eZhHnz96G8ze3RABUWx6xD4sNF0xwF+z7KRa54nO1IH3dM8OjRQ18Qb0" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8j5CkG4hFh1UQ8C8l9w9+o8i5jW11T4Jk5dz4bS0E1LQghDF8tM3n0xPFAgkV5V3" crossorigin="anonymous"></script>
+
+<script src="home.js"></script>
+
+</body>
+</html>
