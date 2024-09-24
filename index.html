@@ -24,7 +24,7 @@
         }
 
         .logo {
-            font-size: 36px; /* Увеличено название */
+            font-size: 36px;
             font-family: 'Casual', sans-serif;
         }
 
@@ -33,7 +33,7 @@
             border: none;
             color: #2e2e2e;
             cursor: pointer;
-            font-size: 24px; /* Увеличен размер кнопок */
+            font-size: 24px;
             margin: 0 20px;
         }
 
@@ -60,8 +60,8 @@
 
         .nav-container {
             display: flex;
-            justify-content: center; /* Центрирование кнопок */
-            background-color: #2e2e2e; /* Серый фон для кнопок */
+            justify-content: center;
+            background-color: #2e2e2e;
             padding: 20px 0;
         }
 
@@ -119,7 +119,7 @@
             text-align: left;
             max-width: 600px;
             margin: 0 auto 50px auto;
-            background-color: rgba(146, 144, 144, 0.9); /* Темный фон для FAQ */
+            background-color: rgba(146, 144, 144, 0.9);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -193,6 +193,17 @@
             margin-top: 10px;
         }
 
+        /* Стиль для ссылки "Войти как админ" */
+        .admin-link {
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 20px;
+            cursor: pointer;
+            color: #c4c3c3;
+            text-decoration: underline;
+        }
+
         /* Анимации */
         @keyframes fadeInUp {
             0% { opacity: 0; transform: translateY(50px); }
@@ -251,13 +262,16 @@
         <div class="section-title">Часто задаваемые вопросы</div>
         <div class="faq-item" onclick="toggleFaq(this)">
             <button>Когда будет конкурс?</button>
-            <p class="faq-answer">в связи с тем, что наше комьюнити только набирает аудиторию, конкурсы будут проходить немного позже.</p>
+            <p class="faq-answer">В связи с тем, что наше комьюнити только набирает аудиторию, конкурсы будут проходить немного позже.</p>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
             <button>Какие будут призы?</button>
-            <p class="faq-answer">в связи с тем, что наше комьюнити только набирает аудиторию, конкурсы будут проходить немного позже.</p>
+            <p class="faq-answer">В связи с тем, что наше комьюнити только набирает аудиторию, конкурсы будут проходить немного позже.</p>
         </div>
     </div>
+
+    <!-- Ссылка для входа как админ -->
+    <span class="admin-link" onclick="showAdminPrompt()">Войти как админ</span>
 </main>
 
 <footer>
@@ -271,46 +285,23 @@
 <script>
     let currentLanguage = 'ru';
 
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        if (menu.style.display === 'block') {
-            menu.style.display = 'none';
-        } else {
-            menu.style.display = 'block';
-        }
-    }
-
     function changeLanguage() {
-        const description = document.querySelector('.description');
-        const founders = document.querySelector('.founders p');
-        const faqItems = document.querySelectorAll('.faq-item button');
-        const faqAnswers = document.querySelectorAll('.faq-answer');
-
-        if (currentLanguage === 'ru') {
-            currentLanguage = 'en';
-            description.textContent = "This is a platform created by school students to share photos and ideas, and we hold contests every month.";
-            founders.textContent = "Our founders are a group of talented school students who believe in the power of creativity and sharing ideas through photos and projects.";
-            faqItems[0].textContent = "When will the contest be?";
-            faqItems[1].textContent = "What will the prizes be?";
-            faqAnswers[0].textContent = "Coming soon"; // Ответы на английском
-            faqAnswers[1].textContent = "Coming soon"; // Ответы на английском
-            document.querySelector('.language-switch button').textContent = 'EN';
-        } else {
-            currentLanguage = 'ru';
-            description.textContent = "Это платформа, созданная школьниками для обмена фотографиями и идеями, а также у нас проводятся конкурсы каждый месяц.";
-            founders.textContent = "Наши основатели - это группа талантливых школьников, которые верят в силу креативности и обмена идеями через фото и проекты.";
-            faqItems[0].textContent = "Когда будет конкурс?"; // Вопросы на русском
-            faqItems[1].textContent = "Какие будут призы?"; // Вопросы на русском
-            faqAnswers[0].textContent = "в связи с тем, что наше комьюнити только набирает аудиторию, конкурсы будут проходить немного позже."; // Ответы на русском
-            faqAnswers[1].textContent = "в связи с тем, что наше комьюнити только набирает аудиторию, конкурсы будут проходить немного позже."; // Ответы на русском
-            document.querySelector('.language-switch button').textContent = 'RU';
-        }
+        currentLanguage = currentLanguage === 'ru' ? 'en' : 'ru';
+        document.querySelector('.language-switch button').textContent = currentLanguage.toUpperCase();
     }
 
-    function toggleFaq(faq) {
-        faq.classList.toggle('open');
-        const answer = faq.querySelector('.faq-answer');
-        answer.style.display = answer.style.display === 'block' ? 'none' : 'block'; // Показывает/скрывает ответ
+    function toggleFaq(item) {
+        item.classList.toggle('open');
+    }
+
+    // Функция для запроса пароля и перехода на страницу админов
+    function showAdminPrompt() {
+        const password = prompt('Введите пароль для входа как админ:');
+        if (password === 'yourAdminPassword') {
+            window.location.href = 'adminpage.html'; // Переход на страницу админов
+        } else {
+            alert('Неверный пароль!');
+        }
     }
 </script>
 
