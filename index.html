@@ -2,33 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Запрет масштабирования -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Image Gallery</title>
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Общие стили для страницы */
         body {
             font-family: 'Dancing Script', cursive;
             background-color: #2e2e2e;
             transition: background-color 0.3s;
-            color: #ffffff;
+            color: #000000;
             text-align: center;
             margin-top: 50px;
         }
 
-        /* Стили для заголовка */
         .header {
-            background-color: #ff7f73;
-            color: rgb(0, 0, 0);
+            background-color: #96666200;
+            color: rgb(255, 116, 109);
             padding: 20px;
-            text-align: center;
-            font-size: 2rem;
+            position: center;
+            font-size: 3rem;
         }
 
-        /* Стили для формы создания поста */
         .post-form {
             background-color: rgb(255, 116, 109);
             padding: 20px;
@@ -37,7 +32,6 @@
             margin-bottom: 30px;
         }
 
-        /* Карточки изображений */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -50,7 +44,7 @@
         }
 
         .card img {
-            border-radius: 15px;
+            border-radius: 1px;
             width: 100%;
             height: auto;
             object-fit: cover;
@@ -61,16 +55,6 @@
             padding: 10px;
         }
 
-        /* Скрываем блок с текстом, если он пустой */
-        .card-body p {
-            margin: 0;
-        }
-
-        .card-body.hidden {
-            display: none;
-        }
-
-        /* Стили для кнопок */
         .btn-custom {
             background-color: #3b5998;
             color: white;
@@ -81,28 +65,29 @@
             background-color: #2a4276;
         }
 
-        /* Неоновый стиль для кнопок */
-        .btn-neon {
-            color: white;
-            text-shadow: 0 0 5px #cf44cf, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
-        }
-
-        .btn-neon.blue {
-            background-color: #ffffff;
-            text-shadow: 0 0 5px #0000ff, 0 0 10px #0000ff, 0 0 15px #0000ff, 0 0 20px #0000ff;
-        }
-
-        .btn-neon.purple {
-            background-color: #ffffff;
-            text-shadow: 0 0 5px #800080, 0 0 10px #800080, 0 0 15px #800080, 0 0 20px #800080;
-        }
-
-        /* Стили для лампочки и переключения фона */
-        .lamp-button {
+        /* Измененные стили для иконки домика */
+        .home-icon {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #52525241;
+            background-color: rgba(82, 82, 82, 0.7);
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            font-size: 20px; /* Уменьшен размер иконки */
+            transition: background-color 0.3s;
+        }
+
+        .home-icon:hover {
+            background-color: #3b3b3b;
+        }
+
+        .lamp-button {
+            position: fixed;
+            top: 20px; /* Перемещена вверх */
+            right: 20px; /* Сдвинута немного вправо */
+            background-color: rgba(82, 82, 82, 0.7);
             border: none;
             border-radius: 50%;
             padding: 10px;
@@ -119,7 +104,6 @@
             content: '💡';
         }
 
-        /* Стили для авроры */
         .aurora {
             background: linear-gradient(45deg, #ffffff, #ffffff);
             background-size: 400% 400%;
@@ -132,7 +116,6 @@
             100% { background-position: 0% 0%; }
         }
 
-        /* Масонский стиль для адаптивности */
         @media (max-width: 767px) {
             .gallery {
                 grid-template-columns: repeat(1, 1fr);
@@ -142,18 +125,10 @@
 </head>
 <body>
 
-<!-- Шапка сайта -->
-<div class="header" data-i18n="header">
+<div class="header">
     Eclipse
 </div>
 
-<!-- Кнопки для перехода -->
-<div class="container mt-4 text-center">
-    <a class="btn btn-neon purple mr-3" href="onas.html" data-i18n="aboutUs">О нас</a>
-    <a class="btn btn-neon blue" href="https://t.me/eclipse_community" target="_blank" data-i18n="telegram">Телеграмм</a>
-</div>
-
-<!-- Кнопка выбора языка -->
 <div class="container mt-4 text-center">
     <select id="language-selector" class="form-control" style="max-width: 200px; margin: 0 auto;">
         <option value="en">English</option>
@@ -161,27 +136,40 @@
     </select>
 </div>
 
-<!-- Форма для создания нового поста -->
 <div class="container mt-4">
     <div class="post-form">
         <form id="post-form">
-            <h3 class="text-center" data-i18n="createPost">Create a Post</h3>
-            <textarea id="post" class="form-control mb-3" placeholder="" rows="3" data-i18n="placeholder"></textarea>
-            <input type="file" class="form-control mb-3" id="image" accept="image/*">
+            <h3 class="text-center">Создать пост</h3>
+            <div class="form-group">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" class="form-control" required placeholder="Введите ваше имя">
+            </div>
+            <div class="form-group">
+                <label for="class">Класс:</label>
+                <input type="text" id="class" class="form-control" required placeholder="Введите ваш класс">
+            </div>
+            <div class="form-group">
+                <label for="description">Описание:</label>
+                <textarea id="description" class="form-control" required rows="3" placeholder="Введите описание"></textarea>
+            </div>
+            <input type="file" class="form-control mb-3" id="image" accept="image/*" required>
             <div class="text-center">
-                <button type="button" class="btn btn-custom" onclick="upload()" data-i18n="upload">Upload</button>
+                <button type="button" class="btn btn-custom" onclick="upload()">Загрузить</button>
             </div>
         </form>
     </div>
 
-    <!-- Галерея изображений -->
     <div class="gallery" id="posts"></div>
 </div>
 
-<!-- Лампочка для переключения фона -->
+<!-- Изменённая иконка домика -->
+<a class="home-icon" href="homepage.html">
+    <i class="fas fa-home"></i>
+</a>
+
+<!-- Лампочка -->
 <button class="lamp-button" onclick="toggleBackground()"></button>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase.js"></script>
 <script>
     var firebaseConfig = {
@@ -196,7 +184,6 @@
     };
     firebase.initializeApp(firebaseConfig);
 
-    // Функция для переключения фона
     function toggleBackground() {
         var body = document.body;
         var lampButton = document.querySelector('.lamp-button');
@@ -209,45 +196,86 @@
         }
     }
 
-    // Функция для загрузки данных
     function upload() {
-        // Логика загрузки поста
-    }
+        var image = document.getElementById('image').files[0];
+        var name = document.getElementById('name').value;
+        var className = document.getElementById('class').value;
+        var description = document.getElementById('description').value;
 
-    // Функция для смены языка
-    function setLanguage(lang) {
-        fetch(`lang-${lang}.json`)
-            .then(response => response.json())
-            .then(translations => {
-                document.querySelectorAll('[data-i18n]').forEach(elem => {
-                    const key = elem.getAttribute('data-i18n');
-                    if (translations[key]) {
-                        elem.innerText = translations[key];
-                    }
-                });
-                document.querySelectorAll('[placeholder]').forEach(elem => {
-                    const key = elem.getAttribute('placeholder');
-                    if (translations[key]) {
-                        elem.setAttribute('placeholder', translations[key]);
-                    }
-                });
+        if (!name || !className || !description || !image) {
+            alert("Пожалуйста, заполните все поля.");
+            return;
+        }
+
+        var imageName = image.name;
+        var storageRef = firebase.storage().ref('images/' + imageName);
+
+        var uploadTask = storageRef.put(image);
+
+        uploadTask.on('state_changed', function(snapshot) {
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+        }, function(error) {
+            console.error("Error uploading image: ", error);
+        }, function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                var post = {
+                    name: name,
+                    class: className,
+                    description: description,
+                    imageURL: downloadURL
+                };
+                firebase.database().ref('blogs/').push(post);
+                document.getElementById('post-form').reset();
             });
+        });
     }
 
-    document.getElementById('language-selector').addEventListener('change', (event) => {
-        setLanguage(event.target.value);
+    function setLanguage() {
+        var selectedLanguage = document.getElementById("language-selector").value;
+        if (selectedLanguage === "ru") {
+            document.querySelector('.header').textContent = 'Eclipse';
+            document.querySelector('.post-form h3').textContent = 'Создать пост';
+            document.querySelector('label[for="name"]').textContent = 'Имя:';
+            document.querySelector('label[for="class"]').textContent = 'Класс:';
+            document.querySelector('label[for="description"]').textContent = 'Описание:';
+            document.querySelector('.btn-custom').textContent = 'Загрузить';
+        } else {
+            document.querySelector('.header').textContent = 'Eclipse';
+            document.querySelector('.post-form h3').textContent = 'Create Post';
+            document.querySelector('label[for="name"]').textContent = 'Name:';
+            document.querySelector('label[for="class"]').textContent = 'Class:';
+            document.querySelector('label[for="description"]').textContent = 'Description:';
+            document.querySelector('.btn-custom').textContent = 'Upload';
+        }
+    }
+
+    document.getElementById("language-selector").addEventListener("change", setLanguage);
+
+    // Загрузка постов из Firebase
+    firebase.database().ref('blogs/').on('value', function(snapshot) {
+        var posts = snapshot.val();
+        var postsContainer = document.getElementById('posts');
+        postsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых постов
+
+        for (var id in posts) {
+            if (posts.hasOwnProperty(id)) {
+                var post = posts[id];
+                var card = document.createElement('div');
+                card.classList.add('card');
+
+                card.innerHTML = `
+                    <img src="${post.imageURL}" class="card-img-top" alt="Image">
+                    <div class="card-body">
+                        <h5>${post.name}</h5>
+                        <p>${post.class}</p>
+                        <p>${post.description}</p>
+                    </div>
+                `;
+                postsContainer.appendChild(card);
+            }
+        }
     });
-
-    // Установка начального языка
-    setLanguage('en');
 </script>
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/1yR9t9xX2fj2zJfru5hU5gZ9WAPZ8xj+Fgmz5bCq" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-6cO1Jcsg9eZhHnz96G8ze3RABUWx6xD4sNF0xwF+z7KRa54nO1IH3dM8OjRQ18Qb0" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8j5CkG4hFh1UQ8C8l9w9+o8i5jW11T4Jk5dz4bS0E1LQghDF8tM3n0xPFAgkV5V3" crossorigin="anonymous"></script>
-
-<script src="home.js"></script>
-
 </body>
 </html>
