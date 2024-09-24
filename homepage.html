@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif; /* Изменено на Arial */
+            font-family: 'Dancing Script', cursive;
             background-color: #2e2e2e;
             transition: background-color 0.3s;
             color: #000000;
@@ -251,6 +251,31 @@
     }
 
     document.getElementById("language-selector").addEventListener("change", setLanguage);
+
+    // Загрузка постов из Firebase
+    firebase.database().ref('blogs/').on('value', function(snapshot) {
+        var posts = snapshot.val();
+        var postsContainer = document.getElementById('posts');
+        postsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых постов
+
+        for (var id in posts) {
+            if (posts.hasOwnProperty(id)) {
+                var post = posts[id];
+                var card = document.createElement('div');
+                card.classList.add('card');
+
+                card.innerHTML = `
+                    <img src="${post.imageURL}" class="card-img-top" alt="Image">
+                    <div class="card-body">
+                        <h5>${post.name}</h5>
+                        <p>${post.class}</p>
+                        <p>${post.description}</p>
+                    </div>
+                `;
+                postsContainer.appendChild(card);
+            }
+        }
+    });
 </script>
 </body>
 </html>
