@@ -163,7 +163,7 @@
 </div>
 
 <!-- Изменённая иконка домика -->
-<a class="home-icon" href="index.html">
+<a class="home-icon" href="homepage.html">
     <i class="fas fa-home"></i>
 </a>
 
@@ -266,10 +266,9 @@
                     <p>${postData.description}</p>
                 </div>
             `;
-            postsContainer.appendChild(card);
+            postsContainer.insertBefore(card, postsContainer.firstChild); // Новые посты в начало
         });
     });
 </script>
-
 </body>
 </html>
