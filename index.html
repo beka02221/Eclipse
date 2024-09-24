@@ -6,7 +6,7 @@
     <title>Eclipse Homepage</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif; /* Оставлено Arial для обычного шрифта */
             background-color: #2e2e2e;
             color: rgb(255, 116, 109);
             margin: 0;
@@ -25,7 +25,7 @@
 
         .logo {
             font-size: 36px; /* Увеличено название */
-            font-family: 'Casual', sans-serif;
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         .menu-btn {
@@ -35,6 +35,7 @@
             cursor: pointer;
             font-size: 24px; /* Увеличен размер кнопок */
             margin: 0 20px;
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         .language-switch {
@@ -51,6 +52,7 @@
             padding: 5px 10px;
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         .language-switch button:hover {
@@ -72,6 +74,7 @@
             cursor: pointer;
             font-size: 28px; 
             margin: 0 40px; 
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         main {
@@ -82,6 +85,7 @@
         .section-title {
             font-size: 24px;
             margin-bottom: 20px;
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         .description {
@@ -128,6 +132,7 @@
         .faq .section-title {
             text-align: center;
             color: black; 
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         .faq-item {
@@ -150,6 +155,7 @@
             text-align: left;
             color: #2e2e2e;
             position: relative;
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         .faq-item button:after {
@@ -191,6 +197,7 @@
         footer p {
             font-size: 12px;
             margin-top: 10px;
+            font-family: Arial, sans-serif; /* Изменено на обычный шрифт */
         }
 
         /* Анимации */
@@ -265,52 +272,16 @@
         <a href="https://t.me/eclipse_community" target="_blank">Telegram</a> | 
         <a href="https://www.instagram.com/_eclipse_community_?igsh=MW83aTl6cHpzaXY2Nw==" target="_blank">Instagram</a>
     </div>
-    <p>created by Bekhruz Shodiev</p>
+    <p>&copy; 2024 Eclipse Community</p>
 </footer>
 
 <script>
-    let currentLanguage = 'ru';
-
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        if (menu.style.display === 'block') {
-            menu.style.display = 'none';
-        } else {
-            menu.style.display = 'block';
-        }
+    function toggleFaq(item) {
+        item.classList.toggle('open');
     }
 
     function changeLanguage() {
-        const description = document.querySelector('.description');
-        const founders = document.querySelector('.founders p');
-        const faqItems = document.querySelectorAll('.faq-item button');
-        const faqAnswers = document.querySelectorAll('.faq-answer');
-
-        if (currentLanguage === 'ru') {
-            currentLanguage = 'en';
-            description.textContent = "This is a platform created by school students to share photos and ideas, and we hold contests every month.";
-            founders.textContent = "Our founders are a group of talented school students who believe in the power of creativity and sharing ideas through photos and projects.";
-            faqItems[0].textContent = "When will the contest be?";
-            faqItems[1].textContent = "What will the prizes be?";
-            faqAnswers[0].textContent = "Coming soon"; // Ответы на английском
-            faqAnswers[1].textContent = "Coming soon"; // Ответы на английском
-            document.querySelector('.language-switch button').textContent = 'EN';
-        } else {
-            currentLanguage = 'ru';
-            description.textContent = "Это платформа, созданная школьниками для обмена фотографиями и идеями, а также у нас проводятся конкурсы каждый месяц.";
-            founders.textContent = "Наши основатели - это группа талантливых школьников, которые верят в силу креативности и обмена идеями через фото и проекты.";
-            faqItems[0].textContent = "Когда будет конкурс?"; // Вопросы на русском
-            faqItems[1].textContent = "Какие будут призы?"; // Вопросы на русском
-            faqAnswers[0].textContent = "Скоро"; // Ответы на русском
-            faqAnswers[1].textContent = "Скоро"; // Ответы на русском
-            document.querySelector('.language-switch button').textContent = 'RU';
-        }
-    }
-
-    function toggleFaq(faq) {
-        faq.classList.toggle('open');
-        const answer = faq.querySelector('.faq-answer');
-        answer.style.display = answer.style.display === 'block' ? 'none' : 'block'; // Показывает/скрывает ответ
+        // Логика смены языка
     }
 </script>
 
